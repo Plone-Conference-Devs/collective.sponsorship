@@ -1,0 +1,40 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.sponsorship">
+  
+  <!-- Include configuration for dependencies listed in setup.py -->
+  <includeDependencies package="." />
+
+  <!-- Grok the package to initialise schema interfaces and content classes -->
+  <grok:grok package="." />
+
+  <browser:page
+     name="sponsorship-controlpanel"
+     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+     permission="cmf.ManagePortal"
+     class=".controlpanel.SponsorshipControlPanelView"
+     />
+
+  <browser:viewlet
+     name="collective.sponsorship.sponsors"
+     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+     manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+     class=".viewlet.SponsorsViewlet"
+     template="viewlet.pt"
+     permission="zope2.View"
+     />
+
+  <!-- Register an extension profile to make the product installable -->
+  <genericsetup:registerProfile
+     name="default"
+     title="Sponsorship Management"
+     description="Install the sponsorship management system"
+     directory="profiles/default"
+     provides="Products.GenericSetup.interfaces.EXTENSION"
+     />
+
+</configure>

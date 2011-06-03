@@ -1,0 +1,3 @@
+<object name="portal_types">
+ <object name="collective.sponsorship.sponsor" meta_type="Dexterity FTI" />
+</object>

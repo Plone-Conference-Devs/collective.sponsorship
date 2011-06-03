@@ -1,0 +1,5 @@
+<registry>
+
+  <records interface="collective.sponsorship.interfaces.ISponsorshipSettings" />
+
+</registry>

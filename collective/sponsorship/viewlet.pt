@@ -1,0 +1,34 @@
+<div id="sponsorships">
+  <tal:has_levels condition="view/levels">
+  <h2>Sponsorships</h2>
+
+  <dl id="sponsorship-level-N"
+      tal:repeat="level view/levels"
+      tal:attributes="id string:sponsorship-level-${level/value}">
+    <dt tal:content="level/name">Gold</dt>
+    <dd><dl>
+        <tal:sponsor repeat="sponsor level/sponsors">
+          <dt>
+            <a
+               href="http://nohost/plone/sponsorships/foo-sponsorship-title"
+               tal:attributes="href sponsor/absolute_url;"
+               tal:content="sponsor/Title">
+              Foo Sponsorship Title
+            </a>
+          </dt>
+          <dd>
+            <a
+               href="http://nohost/plone/sponsorships/foo-sponsorship-title"
+               tal:attributes="href sponsor/absolute_url;">
+              <img alt="Foo Sponsorship Title"
+                   src="http://nohost/plone/sponsorships/foo-sponsorship-title/image_mini"
+                   tal:attributes="src string:${sponsor/absolute_url}/@@download/image;
+                                   alt sponsor/Title;"
+                   />
+            </a>
+          </dd>
+        </tal:sponsor>
+    </dl></dd>
+  </dl>
+  </tal:has_levels>
+</div>
