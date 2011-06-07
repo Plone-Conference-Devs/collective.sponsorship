@@ -6,7 +6,7 @@ from Products.CMFCore.utils import getToolByName
 
 
 class SponsorshipFixture(testing.PloneSandboxLayer):
-    default_bases = (testing.PLONE_FIXTURE,)
+    defaultBases = (testing.PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
