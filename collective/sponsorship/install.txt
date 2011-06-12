@@ -1,0 +1,30 @@
+.. -*-doctest-*-
+
+=============================
+Installation Functional Tests
+=============================
+
+Start with a portal.
+
+    >>> from collective.sponsorship import testing
+    >>> app = testing.PLONE_FUNCTIONAL_TESTING['app']
+    >>> portal = testing.PLONE_FUNCTIONAL_TESTING['portal']
+
+Open a browser as a user with rights to administer the portal.
+
+    >>> from plone.testing import z2
+    >>> admin_browser = z2.Browser(app)
+    >>> admin_browser.handleErrors = False
+    >>> admin_browser.open(portal.absolute_url())
+
+    >>> admin_browser.getLink('Log in').click()
+    >>> admin_browser.getControl('Login Name').value = 'admin'
+    >>> admin_browser.getControl('Password').value = 'secret'
+    >>> admin_browser.getControl('Log in').click()
+
+The site setup control panels page works without installing the
+profile.
+
+    >>> admin_browser.getLink('Site Setup').click()
+    >>> print admin_browser.contents
+    <...TODO...

@@ -4,14 +4,23 @@ from Acquisition import aq_parent
 
 from Products.CMFCore.utils import getToolByName
 
-
-class SponsorshipFixture(testing.PloneSandboxLayer):
-    default_bases = (testing.PLONE_FIXTURE,)
+class PloneFixture(testing.PloneSandboxLayer):
+    """A fixture which just loads the package code."""
+    defaultBases = (testing.PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
         import collective.sponsorship
         self.loadZCML(package=collective.sponsorship)
+
+PLONE_FIXTURE = PloneFixture()
+PLONE_FUNCTIONAL_TESTING = testing.FunctionalTesting(
+    bases=(PLONE_FIXTURE,), name="SponsorshipPlone:Functional")
+
+
+class SponsorshipFixture(testing.PloneSandboxLayer):
+    """A fixture which installs the profile."""
+    defaultBases = (PLONE_FIXTURE,)
 
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
