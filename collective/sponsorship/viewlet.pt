@@ -1,7 +1,6 @@
 <div id="sponsorships">
+  <h2>Sponsored By:</h2>
   <tal:has_levels condition="view/levels">
-  <h2>Sponsorships</h2>
-
   <dl id="sponsorship-level-N"
       tal:repeat="level view/levels"
       tal:attributes="id string:sponsorship-level-${level/value}">
@@ -31,4 +30,23 @@
     </dl></dd>
   </dl>
   </tal:has_levels>
+  <tal:has_no_levels condition="not:view/levels">
+    <ul tal:define="sponsors python:view.getSponsors(500)"
+        class="conference-sponsors">
+        <tal:loop repeat="sponsor sponsors">
+            <li tal:define="obj sponsor/getObject">
+                <a tal:attributes="href obj/url|nothing">
+                    <img tal:condition="obj/image"
+                        tal:attributes="src string:${obj/absolute_url}/@@download/image;
+                        alt obj/Title;
+                        title obj/Title;"
+                    />
+                    <div class="sponsor-no-image" tal:condition="not:obj/image"
+                        tal:content="obj/Title"/>
+                </a>
+                
+            </li>
+        </tal:loop>
+    </ul>
+  </tal:has_no_levels>
 </div>

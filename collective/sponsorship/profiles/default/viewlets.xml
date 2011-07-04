@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<object>
+  <order manager="plone.portalfooter" skinname="*">
+    <viewlet name="collective.sponsorship.sponsors" insert-before="plone.colophon" />
+  </order>
+</object>

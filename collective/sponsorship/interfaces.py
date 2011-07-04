@@ -16,6 +16,12 @@ from plone.registry import field as reg_field
 from Products.CMFCore.utils import getToolByName
 
 
+class IManageSponsorhips(Interface):
+    """
+    View to see all sponsorship details
+    """
+
+
 class SimpleVocabulary(vocabulary.SimpleVocabulary):
 
     def __init__(self, context):
@@ -28,7 +34,11 @@ class SimpleVocabulary(vocabulary.SimpleVocabulary):
         # optionally the maximum
         terms = []
         for idx, level in enumerate(setting):
+            if not level: # no levels configured
+                continue
             level = level.split(',')
+            if len(level) < 3: # improperly configured
+                continue
             name = level[0]
             amount = int(level[1])
             term = vocabulary.SimpleTerm(
@@ -52,15 +62,17 @@ class SimpleVocabulary(vocabulary.SimpleVocabulary):
             review_state='published',
             sort_on='getObjPositionInParent'):
             sponsor = brain.getObject()
-            
             idx = sponsor.level
-            term = self.getTerm(idx)
-            if not hasattr(term, 'sponsors'):
-                term.sponsors = []
-            term.sponsors.append(sponsor)
-            if hasattr(term, 'maximum'):
-                count = counts.get(idx, 0) + 1
-                counts[idx] = count
+            # XXX: I am not 100% whats going on here but if there 
+            # is no level then this block needs an if and it works
+            if idx: 
+                term = self.getTerm(idx)
+                if not hasattr(term, 'sponsors'):
+                    term.sponsors = []
+                term.sponsors.append(sponsor)
+                if hasattr(term, 'maximum'):
+                    count = counts.get(idx, 0) + 1
+                    counts[idx] = count
 
     def __iter__(self):
         """Skip levels whose max has been reached."""
@@ -107,16 +119,35 @@ def PromptSelectFieldWidget(field, request):
 
 
 class ISponsor(form.Schema):
-
+    # TODO: Want to hide on display only
+    #form.mode(level='hidden', url='hidden')
+    
     title = schema.TextLine(
         title=u'Name')
 
     form.widget(level=PromptSelectFieldWidget)
     level = schema.Choice(
         title=u'Sponsorship Level',
+        required=False,
         source=LevelsSourceBinder())
 
+    url = schema.URI(
+        title=u'Link to company/personal website',
+        required=False,
+        )
+    
     text = RichText(
-        title=u'Body Text')
+        title=u'About',
+        description=u'Information about this donation.',
+        required=False,
+        )
+    
+    amount = schema.Int(
+        title=u'Donation Amount',
+        required = False,
+        )
+        
     image = field.NamedBlobImage(
-        title=u'Image')
+        title=u'Image',
+        required=False, # some people are just people
+        )

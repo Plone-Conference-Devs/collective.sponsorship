@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+    <metal:block fill-slot="top_slot"
+                 tal:define="disable_column_two python:request.set('disable_plone.rightcolumn',1); 
+                             disable_column_one python:request.set('disable_plone.leftcolumn',1);" />
+<body>
+
+<div metal:fill-slot="content">
+    <div id="content">
+        <div id="sponsorships">
+      <h2>Sponsor List</h2>
+        <table tal:define="sponsors view/getAllSponsors" class="listing"
+            id="sort-my-sponsorships">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Donation Amount</th>
+                    <th>URL</th>
+                    <th>Sponsorship Level</th>
+                    <th>About/Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tal:loop repeat="sponsor sponsors">
+                    <tr tal:define="obj sponsor/getObject">
+                        <td>
+                            <a tal:attributes="href obj/absolute_url" 
+                                tal:content="obj/Title" />
+                        </td>
+                        <td tal:content="obj/amount"/>
+                        <td tal:content="obj/url"/>
+                        <td tal:content="obj/level"/>
+                        <td tal:content="structure obj/text/raw"/>
+                    </tr>
+                </tal:loop>
+            </tbody>
+        </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

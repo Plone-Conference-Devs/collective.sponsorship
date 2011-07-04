@@ -11,6 +11,7 @@
 
   <!-- Grok the package to initialise schema interfaces and content classes -->
   <grok:grok package="." />
+  <include package=".browser" />
 
   <browser:page
      name="sponsorship-controlpanel"
@@ -21,11 +22,11 @@
 
   <browser:viewlet
      name="collective.sponsorship.sponsors"
-     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-     manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+     manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
      class=".viewlet.SponsorsViewlet"
      template="viewlet.pt"
      permission="zope2.View"
+
      />
 
   <!-- Register an extension profile to make the product installable -->
