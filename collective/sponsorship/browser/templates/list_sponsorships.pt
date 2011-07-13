@@ -6,15 +6,13 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="plone">
 
-    <metal:block fill-slot="top_slot"
-                 tal:define="disable_column_two python:request.set('disable_plone.rightcolumn',1); 
-                             disable_column_one python:request.set('disable_plone.leftcolumn',1);" />
+    
 <body>
 
 <div metal:fill-slot="content">
     <div id="content">
       <div class="all-sponsorships">
-      <h2>Sponsors</h2>
+      <h1>Sponsors</h1>
         <ul tal:define="sponsors view/getAllSponsors"
             class="all-conference-sponsors">
             <tal:loop repeat="sponsor sponsors">
