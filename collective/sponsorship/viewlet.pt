@@ -1,5 +1,5 @@
-<div id="sponsorships">
-  <h2>Sponsored By:</h2>
+<div class="sponsorships">
+  <h2>Sponsored By</h2>
   <tal:has_levels condition="view/levels">
   <dl id="sponsorship-level-N"
       tal:repeat="level view/levels"
