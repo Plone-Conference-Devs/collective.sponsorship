@@ -20,6 +20,12 @@ class IManageSponsorhips(Interface):
     """
     View to see all sponsorship details
     """
+    
+
+class IListSponsorhips(Interface):
+    """
+    List all sponsorships - for the end user/marketing
+    """
 
 
 class SimpleVocabulary(vocabulary.SimpleVocabulary):
