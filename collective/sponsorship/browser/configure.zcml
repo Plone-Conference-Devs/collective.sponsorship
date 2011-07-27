@@ -15,7 +15,7 @@
        />
        
     <browser:page
-       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+       for="*"
        name="list-sponsorships"
        class=".listsponsorships.ListSponsorships"
        permission="zope2.View"
